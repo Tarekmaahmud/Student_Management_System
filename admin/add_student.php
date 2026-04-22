@@ -1,4 +1,3 @@
-<h2 style="color: #2c3e50; margin-bottom: 30px;">Add New Student</h2>
 <form method="POST">
     <div class="form-row">
         <div class="form-group">
@@ -25,54 +24,25 @@
 
     <div class="form-row">
         <div class="form-group">
-            <label>Department:</label>
-            /* create this input as drop down system where
-            " Faculties & Departments of DIU
-            🟢 1. Faculty of Business & Entrepreneurship (FBE)
-            Business Administration
-            Management
-            Real Estate
-            Tourism & Hospitality Management
-            Innovation & Entrepreneurship
-            Finance & Banking
-            Accounting
-            Marketing
-            🔵 2. Faculty of Science & Information Technology (FSIT)
-            Computer Science & Engineering (CSE)
-
-            Software Engineering (SWE)
-            Multimedia & Creative Technology (MCT)
-            Computing & Information Systems (CIS)
-            Information Technology & Management (ITM)
-            Environmental Science & Disaster Management
-            Physical Education & Sports Science
-            🟠 3. Faculty of Engineering (FE)
-            Electrical & Electronic Engineering (EEE)
-            Textile Engineering
-            Civil Engineering
-            Information & Communication Engineering (ICE)
-            Architecture
-
-            👉 (In some updated sources, Robotics & Mechatronics Engineering is also included.)
-
-            🔴 4. Faculty of Health & Life Sciences (FHLS)
-            Pharmacy
-            Public Health
-            Nutrition & Food Engineering
-            Agricultural Science
-            Genetic Engineering & Biotechnology
-            🟣 5. Faculty of Humanities & Social Sciences (FHSS)
-            English
-            Law
-            Journalism & Mass Communication
-            Development Studies
-            Information Science & Library Management" student will select first faculty from dropdown list and then on
-            depertam selection shows only the depertment which under selceted faculty */
-            <input type="text" name="department" required>
+            <label>Faculty:</label>
+            <select name="faculty" id="faculty" required>
+                <option value="">Select Faculty</option>
+                <option value="Faculty of Business & Entrepreneurship (FBE)">Faculty of Business & Entrepreneurship
+                    (FBE)</option>
+                <option value="Faculty of Science & Information Technology (FSIT)">Faculty of Science & Information
+                    Technology (FSIT)</option>
+                <option value="Faculty of Engineering (FE)">Faculty of Engineering (FE)</option>
+                <option value="Faculty of Health & Life Sciences (FHLS)">Faculty of Health & Life Sciences (FHLS)
+                </option>
+                <option value="Faculty of Humanities & Social Sciences (FHSS)">Faculty of Humanities & Social Sciences
+                    (FHSS)</option>
+            </select>
         </div>
         <div class="form-group">
-            <label>Faculty:</label>
-            <input type="text" name="faculty" required>
+            <label>Department:</label>
+            <select name="department" id="department" required>
+                <option value="">Select Department</option>
+            </select>
         </div>
     </div>
 
@@ -127,3 +97,62 @@
     <button type="submit" name="add_student" class="btn btn-success">Add Student</button>
     <a href="?page=view_students" class="btn btn-danger">Cancel</a>
 </form>
+<script>
+    const departments = {
+        "Faculty of Business & Entrepreneurship (FBE)": [
+            "Business Administration",
+            "Management",
+            "Real Estate",
+            "Tourism & Hospitality Management",
+            "Innovation & Entrepreneurship",
+            "Finance & Banking",
+            "Accounting",
+            "Marketing"
+        ],
+        "Faculty of Science & Information Technology (FSIT)": [
+            "Computer Science & Engineering (CSE)",
+            "Software Engineering (SWE)",
+            "Multimedia & Creative Technology (MCT)",
+            "Computing & Information Systems (CIS)",
+            "Information Technology & Management (ITM)",
+            "Environmental Science & Disaster Management",
+            "Physical Education & Sports Science"
+        ],
+        "Faculty of Engineering (FE)": [
+            "Electrical & Electronic Engineering (EEE)",
+            "Textile Engineering",
+            "Civil Engineering",
+            "Information & Communication Engineering (ICE)",
+            "Architecture",
+            "Robotics & Mechatronics Engineering"
+        ],
+        "Faculty of Health & Life Sciences (FHLS)": [
+            "Pharmacy",
+            "Public Health",
+            "Nutrition & Food Engineering",
+            "Agricultural Science",
+            "Genetic Engineering & Biotechnology"
+        ],
+        "Faculty of Humanities & Social Sciences (FHSS)": [
+            "English",
+            "Law",
+            "Journalism & Mass Communication",
+            "Development Studies",
+            "Information Science & Library Management"
+        ]
+    };
+
+    document.getElementById('faculty').addEventListener('change', function () {
+        const faculty = this.value;
+        const deptSelect = document.getElementById('department');
+        deptSelect.innerHTML = '<option value="">Select Department</option>';
+        if (faculty && departments[faculty]) {
+            departments[faculty].forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept;
+                option.textContent = dept;
+                deptSelect.appendChild(option);
+            });
+        }
+    });
+</script>
